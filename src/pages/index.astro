@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
 <BaseLayout>
-	<h1>Experament 1</h1>
 	<div class='boxes'>
 		<div class='box green'></div>
 		<div class='box orange'></div>
@@ -12,12 +11,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 </BaseLayout>
 
 <style>
-	body {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 100vh;
-	}
 	.boxes {
 		margin-top: 1rem;
 		display: flex;
@@ -30,6 +23,17 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 	.box {
 		width: 50px;
 		height: 50px;
+	}
+
+	.green {
+		background-color: green;
+	}
+	.orange {
+		background-color: orange;
+	}
+
+	.purple {
+		background-color: blueviolet;
 	}
 </style>
 

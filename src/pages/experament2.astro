@@ -1,26 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Monogram from '../components/Monogram.astro'
+import BannerTest from '../components/BannerTest.astro'
 ---
 
 <BaseLayout>
-	<section>
-		<div class='content'>
-			<Monogram class='logo' />
-			<div>
-				<p class='eyebrow'>Ashley Luxe</p>
-				<h1>Style Ambassadors</h1>
-				<p></p>
-				<div class='actions'>
-					<button class='btn-primary'>Explore Luxe</button>
-					<button class='btn-secondary'>Shop Luxe</button>
-				</div>
-			</div>
-		</div>
-	</section>
+	<div class='space'>
+		<BannerTest eyebrow='Introducing' headline='Ashley Luxe' subtext='' />
+		<BannerTest
+			eyebrow='Ashley Luxe'
+			headline='Hailee Steinfield for Ashley Luxe'
+			actions='true'
+			subtext=''
+		/>
+		<BannerTest
+			eyebrow='Ashley Luxe'
+			headline='Ashley Luxe Style Ambassadors'
+			actions='true'
+			subtext=''
+		/>
+		<BannerTest
+			eyebrow='Ashley Luxe'
+			headline='Ashley Luxe  Style Ambassadors'
+			subtext='A meeting of the most stylish minds, brought to life in a new collection and custom dress.'
+		/>
+	</div>
 </BaseLayout>
 
-<style>
+<style is:global>
 	*,
 	* > *,
 	body {
@@ -29,107 +35,8 @@ import Monogram from '../components/Monogram.astro'
 		box-sizing: border-box;
 	}
 
-	section {
+	.space {
 		display: grid;
-		place-content: center;
-		justify-content: start;
-		color: #fff;
-		font-family: 'Publico Headline';
-		font-weight: 400;
-		padding: 20px;
-
-		overflow: hidden;
-		height: 640px;
-		background: linear-gradient(
-				264deg,
-				rgba(0, 0, 0, 0) 35.6%,
-				rgba(0, 0, 0, 0.5) 83.07%
-			),
-			url('/public/test.png');
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-	}
-
-	.logo {
-		height: 100%;
-	}
-
-	.content {
-		width: 100%;
-		display: flex;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
-
-	h1 {
-		font-family: 'Publico Headline';
-		font-weight: 400;
-		font-size: 3.5rem;
-	}
-
-	.eyebrow {
-		text-transform: capitalize;
-		font-family: 'Chesna Grotesk';
-		font-size: 16px;
-		font-style: normal;
-		font-weight: 600;
-		line-height: 20px; /* 125% */
-		letter-spacing: 2.4px;
-		text-transform: uppercase;
-	}
-
-	.btn-primary {
-		display: flex;
-		text-transform: uppercase;
-		height: 56px;
-		padding: 0 16px;
-		justify-content: center;
-		align-items: center;
-		gap: 4px;
-
-		border-radius: 4px;
-		background: var(--white, #fff);
-		/* blur/blur-md */
-		backdrop-filter: blur(15px);
-
-		font-family: 'Chesna Grotesk';
-		font-size: 12px;
-		font-style: normal;
-		font-weight: 600;
-		line-height: 16px; /* 133.333% */
-		letter-spacing: 1.8px;
-		text-transform: uppercase;
-	}
-
-	.btn-secondary {
-		display: flex;
-		text-transform: uppercase;
-		height: 56px;
-		padding: 0 16px;
-		justify-content: center;
-		align-items: center;
-		gap: 4px;
-		color: #fff;
-
-		border-radius: 4px;
-		border: 1px solid
-			var(--white-alpha-white-alpha-20, rgba(255, 255, 255, 0.2));
-		background: var(--white-alpha-white-alpha-2, rgba(255, 255, 255, 0.02));
-		/* blur/blur-md */
-		backdrop-filter: blur(15px);
-
-		font-family: 'Chesna Grotesk';
-		font-size: 12px;
-		font-style: normal;
-		font-weight: 600;
-		line-height: 16px; /* 133.333% */
-		letter-spacing: 1.8px;
-		text-transform: uppercase;
-	}
-
-	.actions {
-		display: flex;
-		gap: 1rem;
+		gap: 4rem;
 	}
 </style>

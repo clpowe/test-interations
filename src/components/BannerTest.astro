@@ -1,0 +1,142 @@
+---
+import Monogram from './Monogram.astro'
+
+const props = Astro.props
+---
+
+<section>
+	<div class='content'>
+		<Monogram class='logo' />
+		<div class='main'>
+			<p class='eyebrow'>{props.eyebrow}</p>
+			<h1>{props.headline}</h1>
+			<p>{props.subtext}</p>
+			{
+				props.actions && (
+					<div class='actions'>
+						<button class='btn-primary'>Explore Luxe</button>
+						<button class='btn-secondary'>Shop Luxe</button>
+					</div>
+				)
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	section {
+		display: grid;
+		place-content: center;
+		justify-content: start;
+		color: #fff;
+		font-family: 'Publico Headline';
+		font-weight: 400;
+		padding: 20px;
+
+		overflow: hidden;
+		height: 640px;
+		background: linear-gradient(
+				264deg,
+				rgba(0, 0, 0, 0) 35.6%,
+				rgba(0, 0, 0, 0.5) 83.07%
+			),
+			url('/public/test.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.logo {
+		height: 100%;
+	}
+
+	.content {
+		width: 100%;
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.main {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	h1 {
+		font-family: 'Publico Headline';
+		font-weight: 400;
+		font-size: clamp(44px, 4vw + 1rem, 58px);
+		text-wrap: balance;
+		max-width: 20ch;
+	}
+
+	.eyebrow {
+		text-transform: capitalize;
+		font-family: 'Chesna Grotesk';
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 20px; /* 125% */
+		letter-spacing: 2.4px;
+		text-transform: uppercase;
+	}
+
+	p {
+		max-width: 60ch;
+		text-wrap: balance;
+	}
+
+	.btn-primary {
+		display: flex;
+		text-transform: uppercase;
+		padding: 0.75rem 16px;
+		justify-content: center;
+		align-items: center;
+		gap: 4px;
+		border: none;
+
+		border-radius: 4px;
+		background: var(--white, #fff);
+		/* blur/blur-md */
+		backdrop-filter: blur(15px);
+
+		font-family: 'Chesna Grotesk';
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 16px; /* 133.333% */
+		letter-spacing: 1.8px;
+		text-transform: uppercase;
+	}
+
+	.btn-secondary {
+		display: flex;
+		text-transform: uppercase;
+		padding: 0.75rem 8px;
+		justify-content: center;
+		align-items: center;
+		gap: 4px;
+		color: #fff;
+
+		border-radius: 4px;
+		border: 1px solid
+			var(--white-alpha-white-alpha-20, rgba(255, 255, 255, 0.2));
+		background: var(--white-alpha-white-alpha-2, rgba(255, 255, 255, 0.02));
+		/* blur/blur-md */
+		backdrop-filter: blur(15px);
+
+		font-family: 'Chesna Grotesk';
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 16px; /* 133.333% */
+		letter-spacing: 1.8px;
+		text-transform: uppercase;
+	}
+
+	.actions {
+		display: flex;
+		gap: 1rem;
+	}
+</style>
