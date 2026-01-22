@@ -1,16 +1,57 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+	<h1>Experament 1</h1>
+	<div class='boxes'>
+		<div class='box green'></div>
+		<div class='box orange'></div>
+		<div class='box purple'></div>
+	</div>
+</BaseLayout>
+
+<style>
+	body {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 100vh;
+	}
+	.boxes {
+		margin-top: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		width: 100vw;
+		margin-bottom: 100px;
+	}
+
+	.box {
+		width: 50px;
+		height: 50px;
+	}
+</style>
+
+<script>
+	import { gsap } from 'gsap'
+	import { GSDevTools } from 'gsap/GSDevTools'
+
+	var tl = gsap.timeline()
+	tl.to('.orange', { duration: 1, x: '100vw', xPercent: -100 }).to('.green', {
+		duration: 2,
+		x: '100vw',
+		xPercent: -100,
+		ease: 'bounce'
+	})
+
+	gsap.to('.purple', {
+		duration: 1,
+		x: '100vw',
+		xPercent: -100,
+		rotation: 360,
+		delay: 3
+	})
+
+	GSDevTools.create()
+</script>
