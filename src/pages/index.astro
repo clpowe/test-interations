@@ -1,61 +1,172 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import MonogramLight from '../components/MonogramLight.astro'
 ---
 
 <BaseLayout>
-	<div class='boxes'>
-		<div class='box green'></div>
-		<div class='box orange'></div>
-		<div class='box purple'></div>
-	</div>
+	<section class='space'></section>
+	<section id='scroll' class='scroll'>
+		<div class='main-wrapper'>
+			<div class='main-content'>
+				<div class='main-lockup'>
+					<MonogramLight />
+					<h2>Hailee's favorite pieces</h2>
+				</div>
+				<p>
+					“I've had my eye on the Calden sectional and the Neo upholstered bed
+					from the second I saw them. They're so delicious and warm and elevate
+					a space instantly.”
+				</p>
+			</div>
+			<div class='main-img'>
+				<img src='/MainImage.png' />
+			</div>
+		</div>
+		<div class='grid-section'>
+			<img src='image01.png' alt='' class='p1' />
+			<img src='image01.png' alt='' class='p2' />
+			<img src='image01.png' alt='' class='p3' />
+			<img src='image01.png' alt='' class='p4' />
+			<img src='image01.png' alt='' class='p5' />
+			<img src='image01.png' alt='' class='p6' />
+		</div>
+	</section>
+	<section class='space'></section>
 </BaseLayout>
 
 <style>
-	.boxes {
-		margin-top: 1rem;
+	.space {
+		height: 100vh;
+	}
+
+	#scroll {
+	}
+
+	:root {
+		--gray-500: oklch(0.3296 0.0022 67.75);
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	.main-wrapper {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	section {
+		width: 100%;
+	}
+
+	.main-content {
+		display: grid;
+		place-content: center;
+		padding: 40px;
+
+		p {
+			font-family: 'Publico Headline';
+			font-weight: 200;
+			color: var(--gray-500);
+			font-style: italic;
+			font-size: 26px;
+			line-height: 36px;
+			max-width: 400px;
+		}
+	}
+
+	.main-lockup {
 		display: flex;
-		flex-direction: column;
+		max-width: 40ch;
 		gap: 1rem;
-		width: 100vw;
-		margin-bottom: 100px;
+
+		h2 {
+			font-family: 'Publico Headline';
+			font-weight: 400;
+			color: var(--gray-500);
+			font-size: clamp(32px, 4vw + 1rem, 44px);
+			line-height: 110%;
+			text-wrap: balance;
+			margin: 0;
+		}
+
+		p {
+			font-family: 'Publico Headline';
+			max-width: 60ch;
+			text-wrap: balance;
+		}
+	}
+	.main-img {
+		grid-column: span 2;
+
+		img {
+			width: 100%;
+		}
 	}
 
-	.box {
-		width: 50px;
-		height: 50px;
-	}
+	.grid-section {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
 
-	.green {
-		background-color: green;
-	}
-	.orange {
-		background-color: orange;
-	}
-
-	.purple {
-		background-color: blueviolet;
+		img {
+			width: 100%;
+		}
 	}
 </style>
 
 <script>
 	import { gsap } from 'gsap'
 	import { GSDevTools } from 'gsap/GSDevTools'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-	var tl = gsap.timeline()
-	tl.to('.orange', { duration: 1, x: '100vw', xPercent: -100 }).to('.green', {
-		duration: 2,
-		x: '100vw',
-		xPercent: -100,
-		ease: 'bounce'
+	const main_wrapper = document.querySelector('.main-wrapper')
+	const wrapperHeight = main_wrapper?.clientHeight ?? 100
+	gsap.registerPlugin(GSDevTools)
+
+	gsap.registerPlugin(ScrollTrigger)
+
+	let tl = gsap.timeline({
+		scrollTrigger: {
+			trigger: '.main-wrapper',
+			pin: true,
+			start: 'top top',
+			end: `bottom top`,
+			scrub: true,
+			markers: true // Set to true for debugging
+		}
 	})
 
-	gsap.to('.purple', {
-		duration: 1,
-		x: '100vw',
-		xPercent: -100,
-		rotation: 360,
-		delay: 3
+	tl.to('.p1', {
+		y: wrapperHeight * -1
 	})
+		.to('.p2', {
+			y: wrapperHeight * -1
+		})
+		.to('.p3', {
+			y: wrapperHeight * -1
+		})
+		.to('.p4', {
+			y: wrapperHeight * -1
+		})
+		.to('.p5', {
+			y: wrapperHeight * -1
+		})
+		.to('.p6', {
+			y: wrapperHeight * -1
+		})
+
+	// gsap.to('.grid-section img', {
+	// 	scrollTrigger: {
+	// 		trigger: '.main-wrapper',
+	// 		pin: true,
+	// 		start: 'top top',
+	// 		end: `bottom top`,
+	// 		scrub: true,
+	// 		markers: true // Set to true for debugging
+	// 	},
+	// 	y: wrapperHeight * -1,
+	// 	stagger: 0.8
+	// })
 
 	GSDevTools.create()
 </script>
