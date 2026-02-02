@@ -1,37 +1,37 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import MonogramLight from "../components/MonogramLight.astro";
+import BaseLayout from '../layouts/BaseLayout.astro'
+import MonogramLight from '../components/MonogramLight.astro'
 ---
 
 <BaseLayout>
-	<section class="space"></section>
-	<section id="scroll" class="scroll">
-		<div class="main-wrapper">
-			<div class="main-content">
-				<div class="main-lockup">
+	<section class='space'></section>
+	<section id='scroll' class='scroll'>
+		<div class='main-wrapper'>
+			<div class='main-content'>
+				<div class='main-lockup'>
 					<MonogramLight />
 					<h2>Hailee's favorite pieces</h2>
 				</div>
 				<p>
-					“I've had my eye on the Calden sectional and the Neo
-					upholstered bed from the second I saw them. They're so
-					delicious and warm and elevate a space instantly.”
+					“I've had my eye on the Calden sectional and the Neo upholstered bed
+					from the second I saw them. They're so delicious and warm and elevate
+					a space instantly.”
 				</p>
 			</div>
-			<div class="main-img">
-				<img src="/MainImage.png" />
+			<div class='main-img'>
+				<img src='/MainImage.png' />
 			</div>
 		</div>
-		<div class="grid-section">
-			<img src="image01.png" alt="" class="p1" style="--grid-area: p1" />
+		<div class='grid-section'>
+			<img src='image01.png' alt='' class='p1' style='--grid-area: p1' />
 			<!-- <img src="image01.png" alt="" class="p2" style="--grid-area: p2" /> -->
-			<img src="image01.png" alt="" class="p3" style="--grid-area: p3" />
-			<img src="image01.png" alt="" class="p4" style="--grid-area: p4" />
-			<img src="image01.png" alt="" class="p5" style="--grid-area: p5" />
-			<img src="image01.png" alt="" class="p6" style="--grid-area: p6" />
+			<img src='image01.png' alt='' class='p3' style='--grid-area: p3' />
+			<img src='image01.png' alt='' class='p4' style='--grid-area: p4' />
+			<img src='image01.png' alt='' class='p5' style='--grid-area: p5' />
+			<img src='image01.png' alt='' class='p6' style='--grid-area: p6' />
 		</div>
 	</section>
-	<section class="space"></section>
+	<section class='space'></section>
 </BaseLayout>
 
 <style>
@@ -65,7 +65,7 @@ import MonogramLight from "../components/MonogramLight.astro";
 		padding: 40px;
 
 		p {
-			font-family: "Publico Headline";
+			font-family: 'Publico Headline';
 			font-weight: 200;
 			color: var(--gray-500);
 			font-style: italic;
@@ -81,7 +81,7 @@ import MonogramLight from "../components/MonogramLight.astro";
 		gap: 1rem;
 
 		h2 {
-			font-family: "Publico Headline";
+			font-family: 'Publico Headline';
 			font-weight: 400;
 			color: var(--gray-500);
 			font-size: clamp(32px, 4vw + 1rem, 44px);
@@ -91,7 +91,7 @@ import MonogramLight from "../components/MonogramLight.astro";
 		}
 
 		p {
-			font-family: "Publico Headline";
+			font-family: 'Publico Headline';
 			max-width: 60ch;
 			text-wrap: balance;
 		}
@@ -109,8 +109,8 @@ import MonogramLight from "../components/MonogramLight.astro";
 	.grid-section {
 		display: grid;
 		grid-template-areas:
-			"p1 p2 p3"
-			"p4 p5 p6";
+			'p1 p2 p3'
+			'p4 p5 p6';
 
 		img {
 			width: 100%;
@@ -120,39 +120,61 @@ import MonogramLight from "../components/MonogramLight.astro";
 </style>
 
 <script>
-	import { gsap } from "gsap";
-	import { GSDevTools } from "gsap/GSDevTools";
-	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { gsap } from 'gsap'
+	import { GSDevTools } from 'gsap/GSDevTools'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-	gsap.registerPlugin(GSDevTools, ScrollTrigger);
+	gsap.registerPlugin(GSDevTools, ScrollTrigger)
 
-	const main_wrapper = document.querySelector(".p1");
+	const p1 = document.querySelector('.p1')
 
-	// Single timeline creation with better cleanup
 	const tl = gsap.timeline({
 		scrollTrigger: {
-			trigger: ".main-wrapper",
-			pin: true,
-			start: "top top",
-			end: () => `+=${(main_wrapper?.clientHeight ?? 100) * 2}`,
+			trigger: '.scroll',
+			end: () => `+=${(p1?.clientHeight ?? 100) * 2}`,
 			scrub: true,
-			markers: true,
-			invalidateOnRefresh: true,
-		},
-	});
+			pin: true,
+			invalidateOnRefresh: true
+		}
+	})
+
+	// Single timeline creation with better cleanup
+	// const tl = gsap.timeline({
+	// 	scrollTrigger: {
+	// 		trigger: '.main-wrapper',
+	// 		pin: true,
+	// 		start: 'top top',
+	// 		end: () => `+=${(p1?.clientHeight ?? 100) * 2}`,
+	// 		scrub: true,
+	// 		markers: true,
+	// 		invalidateOnRefresh: true
+	// 	}
+	// })
 
 	// Use function-based values for responsive animations
-	tl.to(".p1, .p5", {
-		y: () => -(main_wrapper?.clientHeight ?? 100),
-		duration: 0.5,
-	}).to(
-		".p3, .p4, .p6",
+	tl.fromTo(
+		'.p1, .p5',
 		{
-			y: () => -(main_wrapper?.clientHeight ?? 100),
-			duration: 0.5,
+			y: () => p1?.clientHeight! * 2,
+			duration: 1,
+			ease: 'circ.in'
 		},
-		">",
-	);
+		{
+			y: () => -(p1?.clientHeight! * 1),
+			ease: 'circ.out'
+		}
+	).fromTo(
+		'.p3, .p4, .p6',
+		{
+			y: () => p1?.clientHeight! * 3,
+			duration: 1,
+			ease: 'circ.in'
+		},
+		{
+			y: () => -(p1?.clientHeight! * 1),
+			ease: 'circ.out'
+		}
+	)
 
-	GSDevTools.create();
+	GSDevTools.create()
 </script>
