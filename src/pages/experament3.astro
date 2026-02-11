@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Typing from '../components/typing.astro'
+---
+
+<BaseLayout>
+	<button>
+		<span class='chat-text'>Chat</span>
+		<span class='typing-indicator'><Typing /></span>
+		<span class='message-text'>Message Waiting</span>
+	</button>
+	<div class='notification'>1</div>
+</BaseLayout>
+
+<style>
+	button {
+		border: none;
+		padding: 0.5rem 0.75rem;
+		background-color: #363534;
+		color: #fff;
+		display: grid;
+		place-content: center;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		anchor-name: --button;
+		overflow: visible;
+		text-align: center;
+		text-transform: uppercase;
+		font-family: sans-serif;
+		text-box-trim: trim-both;
+		font-size: 1rem;
+	}
+
+	button > span {
+		grid-column: 1;
+		grid-row: 1;
+		font-size: 1rem;
+	}
+
+	.chat-text {
+		animation: showChat 6s ease-in-out;
+		animation-fill-mode: forwards;
+	}
+
+	.typing-indicator {
+		opacity: 0;
+		display: grid;
+		place-content: center;
+		animation: showTyping 6s ease-in-out;
+		animation-fill-mode: forwards;
+	}
+
+	.message-text {
+		opacity: 0;
+		animation: showMessage 6s ease-in-out;
+		animation-fill-mode: forwards;
+		white-space: nowrap;
+	}
+
+	.notification {
+		background-color: darkred;
+		color: #fff;
+		display: grid;
+		place-content: center;
+		text-align: center;
+		text-box-trim: trim-both;
+		height: 1.4rem;
+		width: 1.5rem;
+		border-radius: 50%;
+		position: absolute;
+		position-anchor: --button;
+		position-area: top right;
+		transform: translate(-50%, 50%);
+		opacity: 0;
+		animation:
+			showNotification 6s ease-in-out,
+			bounce 2s 4s infinite;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes showChat {
+		0%,
+		30% {
+			opacity: 1;
+		}
+		33%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@keyframes showTyping {
+		0%,
+		30% {
+			opacity: 0;
+		}
+		33%,
+		63% {
+			opacity: 1;
+		}
+		66%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@keyframes showMessage {
+		0%,
+		63% {
+			opacity: 0;
+		}
+		66%,
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes showNotification {
+		0%,
+		63% {
+			opacity: 0;
+			transform: translate(-50%, 50%) scale(0.5);
+		}
+		66%,
+		69% {
+			opacity: 1;
+			transform: translate(-50%, 50%) scale(1.1);
+		}
+		70%,
+		100% {
+			opacity: 1;
+			transform: translate(-50%, 50%) scale(1);
+		}
+	}
+
+	@keyframes bounce {
+		0%,
+		100% {
+			transform: translate(-50%, 50%) translateY(0);
+		}
+		10%,
+		30% {
+			transform: translate(-50%, 50%) translateY(-8px);
+		}
+		20% {
+			transform: translate(-50%, 50%) translateY(0);
+		}
+	}
+</style>
