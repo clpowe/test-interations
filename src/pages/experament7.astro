@@ -1,0 +1,517 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { UEHM, WeightsHelper, BenchmarkRangesHelper } from '../lib/uehm'
+import { Button } from '@/components/ui/button'
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
+import TabsSection from '@/components/TabsSection'
+---
+
+<BaseLayout>
+	<div class='container mx-auto p-6 max-w-7xl'>
+		<!-- Header -->
+		<div class='text-center mb-8'>
+			<h1 class='text-4xl font-bold tracking-tight mb-2'>📊 UEHM Calculator</h1>
+			<p class='text-muted-foreground text-lg'>
+				Unified E-Commerce Health Metric
+			</p>
+		</div>
+
+		<div class='grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6'>
+			<!-- Metrics Input Card -->
+			<Card>
+				<CardHeader>
+					<CardTitle>📈 Input Metrics</CardTitle>
+					<CardDescription>
+						Enter your e-commerce performance metrics
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<form id='metricsForm' class='space-y-4'>
+						<div class='space-y-2'>
+							<Label htmlFor='avgPages'>Average Pages Per Session</Label>
+							<Input
+								type='number'
+								id='avgPages'
+								step='0.1'
+								value='3.0'
+								required
+							/>
+							<p class='text-xs text-muted-foreground'>
+								Typical range: 2-8 pages
+							</p>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='avgTime'>Average Engagement Time (seconds)</Label>
+							<Input type='number' id='avgTime' step='1' value='145' required />
+							<p class='text-xs text-muted-foreground'>
+								Typical range: 30-300 seconds
+							</p>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='pdvRate'>Product Detail View Rate (%)</Label>
+							<Input
+								type='number'
+								id='pdvRate'
+								step='0.1'
+								value='38'
+								required
+							/>
+							<p class='text-xs text-muted-foreground'>Typical range: 15-60%</p>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='atcRate'>Add to Cart Rate (%)</Label>
+							<Input
+								type='number'
+								id='atcRate'
+								step='0.1'
+								value='22'
+								required
+							/>
+							<p class='text-xs text-muted-foreground'>Typical range: 5-35%</p>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='checkoutRate'>Checkout Completion Rate (%)</Label>
+							<Input
+								type='number'
+								id='checkoutRate'
+								step='0.1'
+								value='25'
+								required
+							/>
+							<p class='text-xs text-muted-foreground'>Typical range: 40-90%</p>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='purchaseRate'>Purchase Conversion Rate (%)</Label>
+							<Input
+								type='number'
+								id='purchaseRate'
+								step='0.1'
+								value='22'
+								required
+							/>
+							<p class='text-xs text-muted-foreground'>Typical range: 1-25%</p>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='rps'>Revenue Per Session ($)</Label>
+							<Input type='number' id='rps' step='0.01' value='1.36' required />
+							<p class='text-xs text-muted-foreground'>
+								Typical range: $5-$100
+							</p>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='aov'>Average Order Value ($)</Label>
+							<Input
+								type='number'
+								id='aov'
+								step='0.01'
+								value='549.48'
+								required
+							/>
+							<p class='text-xs text-muted-foreground'>
+								Typical range: $50-$300
+							</p>
+						</div>
+					</form>
+				</CardContent>
+			</Card>
+
+			<!-- Weights Configuration Card -->
+			<Card>
+				<CardHeader>
+					<CardTitle>⚖️ Weight Configuration</CardTitle>
+					<CardDescription>
+						Adjust metric weights or choose a preset
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<!-- Use client:load to render React component on client -->
+					<TabsSection client:load />
+
+					<form id='weightsForm' class='space-y-4 mt-4'>
+						<div class='space-y-2'>
+							<Label htmlFor='wPages'>Pages Per Session Weight</Label>
+							<Input
+								type='number'
+								id='wPages'
+								step='0.01'
+								value='0.10'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='wTime'>Engagement Time Weight</Label>
+							<Input
+								type='number'
+								id='wTime'
+								step='0.01'
+								value='0.08'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='wPdv'>Product View Rate Weight</Label>
+							<Input
+								type='number'
+								id='wPdv'
+								step='0.01'
+								value='0.10'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='wAtc'>Add to Cart Rate Weight</Label>
+							<Input
+								type='number'
+								id='wAtc'
+								step='0.01'
+								value='0.20'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='wCheckout'>Checkout Completion Weight</Label>
+							<Input
+								type='number'
+								id='wCheckout'
+								step='0.01'
+								value='0.18'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='wPurchase'>Purchase Conversion Weight</Label>
+							<Input
+								type='number'
+								id='wPurchase'
+								step='0.01'
+								value='0.18'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='wRps'>Revenue Per Session Weight</Label>
+							<Input
+								type='number'
+								id='wRps'
+								step='0.01'
+								value='0.10'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+
+						<div class='space-y-2'>
+							<Label htmlFor='wAov'>Average Order Value Weight</Label>
+							<Input
+								type='number'
+								id='wAov'
+								step='0.01'
+								value='0.06'
+								min='0'
+								max='1'
+								required
+							/>
+						</div>
+					</form>
+
+					<Button class='w-full mt-6' size='lg' id='calculateBtn'>
+						Calculate UEHM Score
+					</Button>
+				</CardContent>
+			</Card>
+		</div>
+
+		<!-- Results Section -->
+		<Card id='results' class='hidden'>
+			<CardHeader>
+				<CardTitle>📊 Results</CardTitle>
+				<CardDescription>
+					Your e-commerce health metrics analysis
+				</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<!-- Overall Score -->
+				<div class='text-center mb-8'>
+					<p class='text-sm font-medium text-muted-foreground mb-2'>
+						Overall Health Score
+					</p>
+					<div class='text-6xl font-bold mb-4' id='overallScore'>0.0</div>
+					<Progress value={0} id='scoreProgress' class='h-3' />
+				</div>
+
+				<Separator class='my-6' />
+
+				<!-- Pillar Scores -->
+				<div class='grid grid-cols-1 md:grid-cols-3 gap-4 mb-6'>
+					<Card
+						class='bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800'
+					>
+						<CardHeader class='pb-3'>
+							<CardTitle class='text-sm font-medium'>🔵 ENGAGEMENT</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<div
+								class='text-3xl font-bold text-blue-600 dark:text-blue-400'
+								id='engagementScore'
+							>
+								0.0
+							</div>
+						</CardContent>
+					</Card>
+
+					<Card
+						class='bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800'
+					>
+						<CardHeader class='pb-3'>
+							<CardTitle class='text-sm font-medium'>🟢 CONVERSION</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<div
+								class='text-3xl font-bold text-green-600 dark:text-green-400'
+								id='conversionScore'
+							>
+								0.0
+							</div>
+						</CardContent>
+					</Card>
+
+					<Card
+						class='bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800'
+					>
+						<CardHeader class='pb-3'>
+							<CardTitle class='text-sm font-medium'>🟡 VALUE</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<div
+								class='text-3xl font-bold text-yellow-600 dark:text-yellow-400'
+								id='valueScore'
+							>
+								0.0
+							</div>
+						</CardContent>
+					</Card>
+				</div>
+
+				<Separator class='my-6' />
+
+				<!-- Detailed Metrics Table -->
+				<div>
+					<h3 class='text-lg font-semibold mb-4'>Detailed Metrics</h3>
+					<div class='rounded-md border'>
+						<table class='w-full'>
+							<thead>
+								<tr class='border-b bg-muted/50'>
+									<th class='p-3 text-left font-medium'>Metric</th>
+									<th class='p-3 text-right font-medium'>Value</th>
+								</tr>
+							</thead>
+							<tbody id='metricsTableBody' class='divide-y'>
+								<!-- Table rows will be populated by JavaScript -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</CardContent>
+		</Card>
+	</div>
+
+	<script>
+		import { UEHM, WeightsHelper, BenchmarkRangesHelper } from '../lib/uehm'
+
+		// Preset weight configurations
+		const presets = {
+			balanced: WeightsHelper.balanced(),
+			conversion: WeightsHelper.conversionFocused(),
+			revenue: WeightsHelper.revenueFocused()
+		}
+
+		// Load preset weights into form
+		function loadPreset(presetName: string) {
+			const weights = presets[presetName]
+			;(document.getElementById('wPages') as HTMLInputElement).value =
+				weights.avgPagesPerSession.toString()
+			;(document.getElementById('wTime') as HTMLInputElement).value =
+				weights.avgEngagementTimeSeconds.toString()
+			;(document.getElementById('wPdv') as HTMLInputElement).value =
+				weights.productDetailViewRate.toString()
+			;(document.getElementById('wAtc') as HTMLInputElement).value =
+				weights.addToCartRate.toString()
+			;(document.getElementById('wCheckout') as HTMLInputElement).value =
+				weights.checkoutCompletionRate.toString()
+			;(document.getElementById('wPurchase') as HTMLInputElement).value =
+				weights.purchaseConversionRate.toString()
+			;(document.getElementById('wRps') as HTMLInputElement).value =
+				weights.revenuePerSession.toString()
+			;(document.getElementById('wAov') as HTMLInputElement).value =
+				weights.averageOrderValue.toString()
+		}
+
+		// Preset tab click handlers
+		document.querySelectorAll('[data-preset]').forEach((tab) => {
+			tab.addEventListener('click', () => {
+				const preset = tab.getAttribute('data-preset')
+				if (preset) loadPreset(preset)
+			})
+		})
+
+		// Calculate button handler
+		document.getElementById('calculateBtn')?.addEventListener('click', () => {
+			// Get metrics from form
+			const metrics = {
+				avgPagesPerSession: parseFloat(
+					(document.getElementById('avgPages') as HTMLInputElement).value
+				),
+				avgEngagementTimeSeconds: parseFloat(
+					(document.getElementById('avgTime') as HTMLInputElement).value
+				),
+				productDetailViewRate:
+					parseFloat(
+						(document.getElementById('pdvRate') as HTMLInputElement).value
+					) / 100,
+				addToCartRate:
+					parseFloat(
+						(document.getElementById('atcRate') as HTMLInputElement).value
+					) / 100,
+				checkoutCompletionRate:
+					parseFloat(
+						(document.getElementById('checkoutRate') as HTMLInputElement).value
+					) / 100,
+				purchaseConversionRate:
+					parseFloat(
+						(document.getElementById('purchaseRate') as HTMLInputElement).value
+					) / 100,
+				revenuePerSession: parseFloat(
+					(document.getElementById('rps') as HTMLInputElement).value
+				),
+				averageOrderValue: parseFloat(
+					(document.getElementById('aov') as HTMLInputElement).value
+				)
+			}
+
+			// Get weights from form
+			const weights = {
+				avgPagesPerSession: parseFloat(
+					(document.getElementById('wPages') as HTMLInputElement).value
+				),
+				avgEngagementTimeSeconds: parseFloat(
+					(document.getElementById('wTime') as HTMLInputElement).value
+				),
+				productDetailViewRate: parseFloat(
+					(document.getElementById('wPdv') as HTMLInputElement).value
+				),
+				addToCartRate: parseFloat(
+					(document.getElementById('wAtc') as HTMLInputElement).value
+				),
+				checkoutCompletionRate: parseFloat(
+					(document.getElementById('wCheckout') as HTMLInputElement).value
+				),
+				purchaseConversionRate: parseFloat(
+					(document.getElementById('wPurchase') as HTMLInputElement).value
+				),
+				revenuePerSession: parseFloat(
+					(document.getElementById('wRps') as HTMLInputElement).value
+				),
+				averageOrderValue: parseFloat(
+					(document.getElementById('wAov') as HTMLInputElement).value
+				)
+			}
+
+			// Calculate scores
+			const benchmarks = BenchmarkRangesHelper.ecommerceDefaults()
+			const calculator = new UEHM(benchmarks, weights)
+			const score = calculator.calculateScore(metrics)
+			const pillars = calculator.calculatePillars(metrics)
+
+			// Display results
+			const overallScoreEl = document.getElementById('overallScore')
+			const scoreProgressEl = document.getElementById('scoreProgress')
+			if (overallScoreEl) overallScoreEl.textContent = score.toFixed(1)
+			if (scoreProgressEl)
+				scoreProgressEl.setAttribute('value', score.toString())
+
+			const engagementScoreEl = document.getElementById('engagementScore')
+			const conversionScoreEl = document.getElementById('conversionScore')
+			const valueScoreEl = document.getElementById('valueScore')
+
+			if (engagementScoreEl)
+				engagementScoreEl.textContent = pillars.engagement.toFixed(1)
+			if (conversionScoreEl)
+				conversionScoreEl.textContent = pillars.conversion.toFixed(1)
+			if (valueScoreEl) valueScoreEl.textContent = pillars.value.toFixed(1)
+
+			// Update metrics table
+			const tableBody = document.getElementById('metricsTableBody')
+			if (tableBody) {
+				tableBody.innerHTML = `
+					<tr><td class="p-3">Pages Per Session</td><td class="p-3 text-right font-medium">${metrics.avgPagesPerSession.toFixed(
+						2
+					)}</td></tr>
+					<tr><td class="p-3">Engagement Time</td><td class="p-3 text-right font-medium">${metrics.avgEngagementTimeSeconds.toFixed(
+						0
+					)}s</td></tr>
+					<tr><td class="p-3">Product View Rate</td><td class="p-3 text-right font-medium">${(
+						metrics.productDetailViewRate * 100
+					).toFixed(1)}%</td></tr>
+					<tr><td class="p-3">Add to Cart Rate</td><td class="p-3 text-right font-medium">${(
+						metrics.addToCartRate * 100
+					).toFixed(1)}%</td></tr>
+					<tr><td class="p-3">Checkout Completion</td><td class="p-3 text-right font-medium">${(
+						metrics.checkoutCompletionRate * 100
+					).toFixed(1)}%</td></tr>
+					<tr><td class="p-3">Purchase Conversion</td><td class="p-3 text-right font-medium">${(
+						metrics.purchaseConversionRate * 100
+					).toFixed(1)}%</td></tr>
+					<tr><td class="p-3">Revenue Per Session</td><td class="p-3 text-right font-medium">$${metrics.revenuePerSession.toFixed(
+						2
+					)}</td></tr>
+					<tr><td class="p-3">Average Order Value</td><td class="p-3 text-right font-medium">$${metrics.averageOrderValue.toFixed(
+						2
+					)}</td></tr>
+				`
+			}
+
+			// Show results
+			const resultsEl = document.getElementById('results')
+			if (resultsEl) {
+				resultsEl.classList.remove('hidden')
+				resultsEl.scrollIntoView({ behavior: 'smooth' })
+			}
+		})
+	</script>
+</BaseLayout>

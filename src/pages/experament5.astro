@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+// ButtonsDemo.astro
+const buttons = [
+	{ label: 'Contact Us', variant: 'primary' },
+	{ label: 'Learn More', variant: 'outline' },
+	{ label: 'View Projects', variant: 'soft' },
+	{ label: 'Get in Touch', variant: 'accent' }
+]
+---
+
+<BaseLayout>
+	<section class='wrap' aria-label='Button styles'>
+		<div class='row'>
+			{
+				buttons.map((b) => (
+					<button class={`btn btn--${b.variant}`} type='button'>
+						{b.label}
+					</button>
+				))
+			}
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.wrap {
+		padding: 24px;
+	}
+
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		align-items: center;
+	}
+
+	.btn {
+		appearance: none;
+		border: 0;
+		border-radius: 4px;
+		padding: 12px 24px;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1;
+		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
+		user-select: none;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.btn:focus-visible {
+		outline: 3px solid rgba(31, 73, 122, 0.35);
+		outline-offset: 3px;
+	}
+
+	/* 1) Primary Blue Filled */
+	.btn--primary {
+		background: #1f497a;
+		color: #fff;
+	}
+	.btn--primary:hover {
+		background: #163659;
+	}
+
+	/* 2) Minimal Outline */
+	.btn--outline {
+		background: transparent;
+		color: #1f497a;
+		border: 2px solid #1f497a;
+		padding: 10px 22px; /* compensate for border */
+		font-weight: 500;
+		font-size: 15px;
+	}
+	.btn--outline:hover {
+		background: #1f497a;
+		color: #fff;
+	}
+
+	/* 3) Soft Neutral (Subtle) */
+	.btn--soft {
+		background: #f2f2f2;
+		color: #1f497a;
+		border: 1px solid #ccc;
+		font-weight: 500;
+	}
+	.btn--soft:hover {
+		background: #e1e1e1;
+	}
+
+	/* 4) Accent Hover (Subtle Color Shift) */
+	.btn--accent {
+		background: transparent;
+		color: #1f497a;
+		border: 2px solid #1f497a;
+	}
+	.btn--accent:hover {
+		background: #e8f1fa;
+		border-color: #4788d1;
+		color: #24568f;
+	}
+</style>

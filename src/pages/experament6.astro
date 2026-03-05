@@ -1,0 +1,142 @@
+---
+// KineticButtons.astro
+const buttons = [
+  { label: "Discover", variant: "magnetic" },   // cursor attraction (JS)
+  { label: "Projects", variant: "liquid" },     // fluid wobble + ripple
+  { label: "Studio", variant: "shimmer" },      // animated border conic-gradient
+  { label: "Contact", variant: "split" },       // split text + sweep
+];
+---
+
+<section class="wrap" aria-label="Kinetic button set">
+  <div class="row">
+    {buttons.map((b) => (
+      <button class={`btn btn--${b.variant}`} type="button" data-magnetic={b.variant === "magnetic" ? "1" : "0"}>
+        <span class="btn__bg" aria-hidden="true"></span>
+
+        <span class="btn__content">
+          <span class="btn__label">{b.label}</span>
+
+          {b.variant === "split" && (
+            <span class="btn__label btn__label--ghost" aria-hidden="true">{b.label}</span>
+          )}
+
+          <span class="btn__icon" aria-hidden="true">→</span>
+        </span>
+      </button>
+    ))}
+  </div>
+</section>
+
+<script is:inline>
+// Magnetic hover (subtle "pull" toward cursor)
+const buttons = document.querySelectorAll('button[data-magnetic="1"]');
+
+const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+buttons.forEach((btn) => {
+	const strength = 18; // px
+	const onMove = (e) => {
+		const r = btn.getBoundingClientRect();
+		const x = e.clientX - (r.left + r.width / 2);
+		const y = e.clientY - (r.top + r.height / 2);
+		const nx = clamp(x / (r.width / 2), -1, 1);
+		const ny = clamp(y / (r.height / 2), -1, 1);
+		btn.style.setProperty("--mx", `${nx * strength}px`);
+		btn.style.setProperty("--my", `${ny * strength}px`);
+	};
+
+	const onLeave = () => {
+		btn.style.setProperty("--mx", `0px`);
+		btn.style.setProperty("--my", `0px`);
+	};
+
+	btn.addEventListener("mousemove", onMove);
+	btn.addEventListener("mouseleave", onLeave);
+});
+</script>
+
+<style>
+  :root {
+    --ink: #0f1720;
+    --blue: #1f497a;
+    --paper: #ffffff;
+    --hair: rgba(15, 23, 32, 0.18);
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .wrap {
+    padding: 28px;
+    background: var(--paper);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn {
+    --mx: 0px;
+    --my: 0px;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 52px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid var(--hair);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+
+    transform: translate(var(--mx), var(--my));
+    transition: transform 280ms var(--ease), border-color 240ms var(--ease), color 240ms var(--ease);
+  }
+
+  .btn:focus-visible {
+    outline: 3px solid rgba(31, 73, 122, 0.25);
+    outline-offset: 3px;
+  }
+
+  .btn__content {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1;
+  }
+
+  .btn__label {
+    font-size: 15px;
+    font-weight: 550;
+    letter-spacing: 0.02em;
+    transition: transform 320ms var(--ease), filter 320ms var(--ease), opacity 320ms var(--ease);
+    white-space: nowrap;
+  }
+
+  .btn__icon {
+    font-size: 16px;
+    opacity: 0.65;
+    transform: translateX(-6px);
+    transition: transform 320ms var(--ease), opacity 320ms var(--ease);
+  }
+
+  .btn:hover .btn__icon {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .btn__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
