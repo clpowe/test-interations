@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Icon } from 'astro-icon/components'
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardFooter,
+	CardTitle
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
+import TabsSection from '@/components/TabsSection'
+---
+
+<BaseLayout>
+	<div class='container mx-auto p-6 max-w-7xl'>
+		<!-- Header -->
+		<Card>
+			<CardContent
+				className=' bg-radial-[at_25%_25%] from-white to-zinc-900 to-75%'
+			>
+				<img
+					src='https://ashleyfurniture.scene7.com/is/image/AshleyFurniture/24203-38-HEAD-ON-SW-P1-KO?fit=fit&wid=2048&hei=1536'
+				/>
+			</CardContent>
+			<CardHeader className='flex'>
+				<div
+					class='title-description justify-between w-full flex flex-col gap-2'
+				>
+					<div class='grid gap-1'>
+						<CardTitle>SimpleJoy Sofa</CardTitle>
+						<CardDescription>$999.00</CardDescription>
+					</div>
+					<div class='flex gap-1'>
+						{
+							Array(5)
+								.fill(null)
+								.map((_, i) => <Icon name='ph:star-fill' width='15' />)
+						}
+					</div>
+					<div class='swatch-options flex gap-2'>
+						<div class='swatch selected'></div>
+						<div class='swatch'></div>
+					</div>
+				</div>
+				<!-- <div class='badge-price'>
+					<p class='text-xl'>$0.00</p>
+				</div> -->
+			</CardHeader>
+
+			<Badge className='absolute top-4 left-4'>Badge</Badge>
+			<!-- <CardFooter>
+				<Button variant='outline'>Buy Now</Button>
+			</CardFooter> -->
+		</Card>
+	</div>
+
+	<script></script>
+</BaseLayout>
+
+<style>
+	.swatch {
+		background-color: antiquewhite;
+		border-radius: 50%;
+		height: 24px;
+		width: 24px;
+	}
+
+	.selected {
+		border: 2px solid black;
+		border-spacing: 4px;
+		height: 24px;
+		width: 24px;
+	}
+</style>
