@@ -16,26 +16,29 @@ import { Label } from '@/components/ui/label'
 import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
 import TabsSection from '@/components/TabsSection'
+
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger
+} from '@/components/ui/accordion'
 ---
 
 <BaseLayout>
 	<div class='container mx-auto p-6 max-w-7xl'>
 		<!-- Header -->
-		<Card>
-			<CardContent
-				className=' bg-radial-[at_25%_25%] from-white to-zinc-900 to-75%'
-			>
-				<img
-					src='https://ashleyfurniture.scene7.com/is/image/AshleyFurniture/24203-38-HEAD-ON-SW-P1-KO?fit=fit&wid=2048&hei=1536'
-				/>
+		<Card className=''>
+			<CardContent className='bg-gradient-to-b from-[#EBEBEB] to-[#F7F7F7]'>
+				<img src='/product.png' class='mix-blend-multiply' />
 			</CardContent>
 			<CardHeader className='flex'>
 				<div
 					class='title-description justify-between w-full flex flex-col gap-2'
 				>
 					<div class='grid gap-1'>
-						<CardTitle>SimpleJoy Sofa</CardTitle>
-						<CardDescription>$999.00</CardDescription>
+						<CardTitle>Reveon Lakes Sofa</CardTitle>
+						<CardDescription>$599.99</CardDescription>
 					</div>
 					<div class='flex gap-1'>
 						{
@@ -54,14 +57,37 @@ import TabsSection from '@/components/TabsSection'
 				</div> -->
 			</CardHeader>
 
-			<Badge className='absolute top-4 left-4'>Badge</Badge>
+			<Badge variant='sale' className='absolute top-4 left-4'>Badge</Badge>
 			<!-- <CardFooter>
 				<Button variant='outline'>Buy Now</Button>
 			</CardFooter> -->
 		</Card>
 	</div>
-
-	<script></script>
+	<div>
+		<Accordion defaultValue={['shipping']} className='max-w-lg'>
+			<AccordionItem value='shipping'>
+				<AccordionTrigger>What are your shipping options?</AccordionTrigger>
+				<AccordionContent>
+					We offer standard (5-7 days), express (2-3 days), and overnight
+					shipping. Free shipping on international orders.
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value='returns'>
+				<AccordionTrigger>What is your return policy?</AccordionTrigger>
+				<AccordionContent>
+					Returns accepted within 30 days. Items must be unused and in original
+					packaging. Refunds processed within 5-7 business days.
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value='support'>
+				<AccordionTrigger>How can I contact customer support?</AccordionTrigger>
+				<AccordionContent>
+					Reach us via email, live chat, or phone. We respond within 24 hours
+					during business days.
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	</div>
 </BaseLayout>
 
 <style>
