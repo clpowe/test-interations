@@ -1,7 +1,6 @@
 /* Box sizing rules */
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/inter';
 
@@ -9,7 +8,7 @@
 
 @font-face {
 	font-family: 'Publico';
-	src: url('/public/PublicoHeadline-Roman-Web.woff2') format('woff2');
+	src: url('/PublicoHeadline-Roman-Web.woff2') format('woff2');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -17,7 +16,7 @@
 
 @font-face {
 	font-family: 'Chesna Grotesk';
-	src: url('/public/chesnagrotesk-regular-webfont.woff2') format('woff2');
+	src: url('/chesnagrotesk-regular-webfont.woff2') format('woff2');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -25,7 +24,7 @@
 
 @font-face {
 	font-family: 'Chesna Grotesk';
-	src: url('/public/chesnagrotesk-semibold-webfont.woff2') format('woff2');
+	src: url('/chesnagrotesk-semibold-webfont.woff2') format('woff2');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -36,11 +35,11 @@
 	--off-white: oklch(0.9769 0.0011 17.18);
 
 	/* Brand Orange */
-	--brand-primary-50: oklch(0.9687 0.0154 67.64) ;
-	--brand-primary-100: oklch(0.8458 0.0907 63.39) ;
-	--brand-primary-200: oklch(0.7402 0.1635 57.02) ;
-	--brand-primary-300: oklch(0.6862 0.173 52.45) ;
-	--brand-primary-400: oklch(0.6407 0.164 51.72) ;
+	--brand-primary-50: oklch(0.9687 0.0154 67.64);
+	--brand-primary-100: oklch(0.8458 0.0907 63.39);
+	--brand-primary-200: oklch(0.7402 0.1635 57.02);
+	--brand-primary-300: oklch(0.6862 0.173 52.45);
+	--brand-primary-400: oklch(0.6407 0.164 51.72);
 
 	/* Brand Gray */
 	--brand-gray-50: oklch(0.9644 0.0029 84.56);
@@ -109,12 +108,13 @@
 		'Liberation Mono', 'Courier New', monospace;
 
 	--opacity-98: oklch(1 0 0 / 0.02);
-	--opacity-90: oklch(1 0 0 / 0.10)
-	--opacity-80: oklch(1 0 0 / 0.20)
-	--opacity-50: oklch(1 0 0 / 0.50)
-	--opacity-30: oklch(1 0 0 / 0.70)
+	--opacity-90: oklch(1 0 0 / 0.1);
+	--opacity-80: oklch(1 0 0 / 0.2);
+	--opacity-50: oklch(1 0 0 / 0.5);
+	--opacity-30: oklch(1 0 0 / 0.7);
 
-	--radius: 0.625rem;
+	--radius: 0.5rem;
+
 	--shadow-x: 0;
 	--shadow-y: 1px;
 	--shadow-blur: 3px;
@@ -252,10 +252,9 @@
 	--radius-3xl: calc(var(--radius) * 2.2);
 	--radius-4xl: calc(var(--radius) * 2.6);
 
-
 	--text-2xs: 0.625rem;
 	--text-xs: 0.75rem;
-	--text-sm:0.875rem;
+	--text-sm: 0.875rem;
 	--text-md: 1rem;
 	--text-lg: 1.125rem;
 	--text-xl: 1.5rem;
@@ -263,8 +262,6 @@
 	--text-3xl: 2.5rem;
 
 	--text-overline: 2rem;
-
-
 }
 
 @layer base {

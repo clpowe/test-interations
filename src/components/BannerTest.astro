@@ -11,14 +11,9 @@ const props = Astro.props
 			<p class='eyebrow'>{props.eyebrow}</p>
 			<h1>{props.headline}</h1>
 			<p>{props.subtext}</p>
-			{
-				props.actions && (
-					<div class='actions'>
-						<button class='btn-primary'>Explore Luxe</button>
-						<button class='btn-secondary'>Shop Luxe</button>
-					</div>
-				)
-			}
+			<div>
+				<slot />
+			</div>
 		</div>
 	</div>
 </section>

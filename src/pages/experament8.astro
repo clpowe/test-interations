@@ -13,6 +13,17 @@ import {
 } from '@/components/ui/card'
 import { Accordion } from '@/components/Accordion'
 
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator
+} from '@/components/ui/breadcrumb'
+import BannerTest from '@/components/BannerTest.astro'
+import CountdownTimer from '@/components/Timer'
+
 const accordionData = [
 	{
 		title: 'Is it accessible?',
@@ -33,6 +44,24 @@ const accordionData = [
 
 <BaseLayout>
 	<div class='container mx-auto p-6 max-w-7xl'>
+		<div class='my-8'>
+			<Breadcrumb>
+				<BreadcrumbList>
+					<BreadcrumbItem>
+						<BreadcrumbLink href='/'>Home</BreadcrumbLink>
+					</BreadcrumbItem>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbLink href='/components'>Components</BreadcrumbLink>
+					</BreadcrumbItem>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+					</BreadcrumbItem>
+				</BreadcrumbList>
+			</Breadcrumb>
+		</div>
+
 		<!-- Header -->
 		<Card className=''>
 			<CardContent className='bg-gradient-to-b from-[#EBEBEB] to-[#F7F7F7]'>
