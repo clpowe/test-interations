@@ -11,18 +11,24 @@ import {
 	CardFooter,
 	CardTitle
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Progress } from '@/components/ui/progress'
-import { Separator } from '@/components/ui/separator'
-import TabsSection from '@/components/TabsSection'
+import { Accordion } from '@/components/Accordion'
 
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger
-} from '@/components/ui/accordion'
+const accordionData = [
+	{
+		title: 'Is it accessible?',
+		description: 'Yes. It adheres to the WAI-ARIA design pattern.'
+	},
+	{
+		title: 'Is it styled?',
+		description:
+			"Yes. It comes with default styles that matches the other components' aesthetic."
+	},
+	{
+		title: 'Is it animated?',
+		description:
+			"Yes. It's animated by default, but you can disable it if you prefer."
+	}
+]
 ---
 
 <BaseLayout>
@@ -44,7 +50,13 @@ import {
 						{
 							Array(5)
 								.fill(null)
-								.map((_, i) => <Icon name='ph:star-fill' width='15' />)
+								.map((_, i) => (
+									<Icon
+										name='ph:star-fill'
+										width='15'
+										class='fill-amber-500 text-amber-500'
+									/>
+								))
 						}
 					</div>
 					<div class='swatch-options flex gap-2'>
@@ -57,40 +69,27 @@ import {
 				</div> -->
 			</CardHeader>
 
-			<Badge variant='sale' className='absolute top-4 left-4'>Badge</Badge>
+			<Badge className='absolute top-4 left-4'>Badge</Badge>
 			<!-- <CardFooter>
 				<Button variant='outline'>Buy Now</Button>
 			</CardFooter> -->
 		</Card>
 	</div>
 	<div>
-		<Accordion defaultValue={['shipping']} className='max-w-lg'>
-			<AccordionItem value='shipping'>
-				<AccordionTrigger>What are your shipping options?</AccordionTrigger>
-				<AccordionContent>
-					We offer standard (5-7 days), express (2-3 days), and overnight
-					shipping. Free shipping on international orders.
-				</AccordionContent>
-			</AccordionItem>
-			<AccordionItem value='returns'>
-				<AccordionTrigger>What is your return policy?</AccordionTrigger>
-				<AccordionContent>
-					Returns accepted within 30 days. Items must be unused and in original
-					packaging. Refunds processed within 5-7 business days.
-				</AccordionContent>
-			</AccordionItem>
-			<AccordionItem value='support'>
-				<AccordionTrigger>How can I contact customer support?</AccordionTrigger>
-				<AccordionContent>
-					Reach us via email, live chat, or phone. We respond within 24 hours
-					during business days.
-				</AccordionContent>
-			</AccordionItem>
-		</Accordion>
+		<Accordion data={accordionData} client:idle />
+	</div>
+	<div class='back'>
+		<Button variant='outline'>New Branch</Button>
 	</div>
 </BaseLayout>
 
 <style>
+	.back {
+		display: grid;
+		place-content: center;
+		height: 10rem;
+		background-image: url(/MainImage.png);
+	}
 	.swatch {
 		background-color: antiquewhite;
 		border-radius: 50%;
