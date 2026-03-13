@@ -2,4 +2,9 @@
 const { title } = Astro.props
 ---
 
-<section
+<section class='p-8'>
+	<h2 class='text-3xl font-serif'>{title}</h2>
+	<div class='flex gap-4 mt-4'>
+		<slot />
+	</div>
+</section>

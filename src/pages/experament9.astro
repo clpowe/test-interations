@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { Button } from '@/components/ui/button'
+import { PlusIcon } from 'lucide-react'
+import ComponentDisplay from '@/components/ComponentDisplay.astro'
+
+const variants = ['default', 'secondary', 'ghost', 'link']
+---
+
+<BaseLayout>
+	<div class='container mx-auto p-6 max-w-7xl'>
+		<ComponentDisplay title='Buttons'>
+			{
+				variants.map((v: any) => (
+					<div>
+						<Button variant={v}>Button</Button>
+						{v !== 'link' && (
+							<Button variant={v} size='icon' aria-label='Add'>
+								<PlusIcon />
+							</Button>
+						)}
+					</div>
+				))
+			}
+		</ComponentDisplay>
+	</div>
+</BaseLayout>
+
+<style>
+	.back {
+		display: grid;
+		place-content: center;
+		height: 10rem;
+		background-image: url(/MainImage.png);
+	}
+	.swatch {
+		background-color: antiquewhite;
+		border-radius: 50%;
+		height: 24px;
+		width: 24px;
+	}
+
+	.selected {
+		border: 2px solid black;
+		border-spacing: 4px;
+		height: 24px;
+		width: 24px;
+	}
+</style>
